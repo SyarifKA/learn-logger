@@ -23,17 +23,6 @@ var (
 	goVersion string
 )
 
-func Init() error {
-	err := SetFromEnvFile(".env")
-	if err != nil && !os.IsNotExist(err) {
-		log.Printf("failed to set env file: %v\n", err)
-		return err
-	}
-
-	goVersion = runtime.Version()
-	return nil
-}
-
 func SetFromEnvFile(filepath string) error {
 	if _, err := os.Stat(filepath); err != nil {
 		return err
@@ -43,13 +32,12 @@ func SetFromEnvFile(filepath string) error {
 	if err != nil {
 		return err
 	}
+
 	scanner := bufio.NewScanner(f)
-	if err := scanner.Err(); err != nil {
-		return err
-	}
 	for scanner.Scan() {
 		text := scanner.Text()
 		text = strings.TrimSpace(text)
+		text = strings.TrimPrefix(text, "\uFEFF")
 		vars := strings.SplitN(text, "=", 2)
 		if len(vars) < 2 {
 			return err
@@ -58,6 +46,20 @@ func SetFromEnvFile(filepath string) error {
 			return err
 		}
 	}
+	if err := scanner.Err(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func Init() error {
+	err := SetFromEnvFile(".env")
+	if err != nil && !os.IsNotExist(err) {
+		log.Printf("failed to set env file: %v\n", err)
+		return err
+	}
+
+	goVersion = runtime.Version()
 	return nil
 }
 

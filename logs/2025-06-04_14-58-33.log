@@ -1,5 +1,0 @@
-time="2025-06-04T14:58:33+07:00" level=debug msg="singleton debug" environment=development go_version=
-time="2025-06-04T14:58:33+07:00" level=info msg="singleton info" environment=development go_version=
-time="2025-06-04T14:58:33+07:00" level=warning msg="singleton warn" environment=development go_version=
-time="2025-06-04T14:58:33+07:00" level=error msg="singleton debug" environment=development go_version=
-time="2025-06-04T14:58:33+07:00" level=fatal msg="singleton fatal" environment=development go_version=

@@ -15,11 +15,19 @@ var (
 	log, _        = NewLogger(&Config{Formatter: &TextFormatter, Level: InfoLevel, LogName: "application.log"})
 	JSONFormatter logrus.JSONFormatter
 	TextFormatter logrus.TextFormatter
-	serviceFields = map[string]interface{}{
+
+//	serviceFields = map[string]interface{}{
+//		env.EnvironmentName: env.ServiceEnv(),
+//		env.GoVersionName:   env.GetVersion(),
+//	}
+)
+
+func getServiceFields() map[string]interface{} {
+	return map[string]interface{}{
 		env.EnvironmentName: env.ServiceEnv(),
 		env.GoVersionName:   env.GetVersion(),
 	}
-)
+}
 
 type (
 	Level  = logrus.Level
@@ -70,7 +78,7 @@ func SetConfig(cfg *Config) error {
 	}
 
 	// Format nama file log berdasarkan tanggal
-	logTimestamp := time.Now().Format("2006-01-02_15-04-05")
+	logTimestamp := time.Now().Format("2006-01-02_15-04")
 	logFile := fmt.Sprintf("logs/%s.log", logTimestamp)
 
 	log.SetOutput(&lumberjack.Logger{
@@ -87,21 +95,21 @@ func SetConfig(cfg *Config) error {
 }
 
 func Debug(args ...interface{}) {
-	log.WithFields(serviceFields).Debug(args...)
+	log.WithFields(getServiceFields()).Debug(args...)
 }
 
 func Info(args ...interface{}) {
-	log.WithFields(serviceFields).Info(args...)
+	log.WithFields(getServiceFields()).Info(args...)
 }
 
 func Warn(args ...interface{}) {
-	log.WithFields(serviceFields).Warn(args...)
+	log.WithFields(getServiceFields()).Warn(args...)
 }
 
 func Error(args ...interface{}) {
-	log.WithFields(serviceFields).Error(args...)
+	log.WithFields(getServiceFields()).Error(args...)
 }
 
 func Fatal(args ...interface{}) {
-	log.WithFields(serviceFields).Fatal(args...)
+	log.WithFields(getServiceFields()).Fatal(args...)
 }

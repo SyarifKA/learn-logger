@@ -22,7 +22,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	logTimestamp := time.Now().Format("2006-01-02_15-04-05")
+	logTimestamp := time.Now().Format("2006-01-02_15-04")
 	logFile := fmt.Sprintf("logs/%s.log", logTimestamp)
 
 	err = log.SetConfig(&log.Config{
@@ -38,5 +38,5 @@ func main() {
 	log.Info("singleton info")
 	log.Warn("singleton warn")
 	log.Error("singleton debug")
-	log.Fatal("singleton fatal")
+	// log.Fatal("singleton fatal")
 }

@@ -1,0 +1,4 @@
+time="2025-06-04T22:03:53+07:00" level=debug msg="singleton debug" environment=staging go_version=go1.24.3
+time="2025-06-04T22:03:53+07:00" level=info msg="singleton info" environment=staging go_version=go1.24.3
+time="2025-06-04T22:03:53+07:00" level=warning msg="singleton warn" environment=staging go_version=go1.24.3
+time="2025-06-04T22:03:53+07:00" level=error msg="singleton debug" environment=staging go_version=go1.24.3
