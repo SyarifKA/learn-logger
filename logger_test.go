@@ -40,7 +40,12 @@ func TestFormat(t *testing.T) {
 func TestOutput(t *testing.T) {
 	logger := logrus.New()
 
-	file, err := os.OpenFile("aplication.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	err := os.MkdirAll("logs", os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	file, err := os.OpenFile("logs/aplication.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,7 +62,12 @@ func TestOutput(t *testing.T) {
 func TestField(t *testing.T) {
 	logger := logrus.New()
 
-	file, err := os.OpenFile("aplication.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	err := os.MkdirAll("logs", os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	file, err := os.OpenFile("logs/aplication.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
