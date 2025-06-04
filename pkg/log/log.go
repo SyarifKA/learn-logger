@@ -2,10 +2,13 @@ package log
 
 import (
 	"errors"
+	"fmt"
 	"os"
+	"time"
 
 	"github.com/SyarifKA/learn-logger/pkg/env"
 	"github.com/sirupsen/logrus"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 var (
@@ -65,6 +68,18 @@ func SetConfig(cfg *Config) error {
 		// set output file into logrus
 		log.SetOutput(file)
 	}
+
+	// Format nama file log berdasarkan tanggal
+	logTimestamp := time.Now().Format("2006-01-02_15-04-05")
+	logFile := fmt.Sprintf("logs/%s.log", logTimestamp)
+
+	log.SetOutput(&lumberjack.Logger{
+		Filename:   logFile,
+		MaxSize:    1, // MB
+		MaxBackups: 7,
+		MaxAge:     30,   // Hari
+		Compress:   true, // gzip
+	})
 
 	log.SetFormatter(cfg.Formatter)
 	log.SetLevel(cfg.Level)
